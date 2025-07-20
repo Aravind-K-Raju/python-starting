@@ -1,39 +1,41 @@
-class pets:
-    def __init__(self,name: str ,age):
+import csv
+
+class Item:
+    pay_rate = 0.8
+    all = []
+    def __init__(self,name: str,price :float,Qty = 0):
+        assert price >= 0,f"price {price} is not greater than 0"
+        assert Qty >= 0,f"price {Qty} is not greater than 0"
 
         self.name = name
-        self.age = age
-       
+        self.price = price
+        self.Qty = Qty
 
-    def show(self):
-        print(f"i am {self.name} of age {self.age}")
+        #actions to execute
+        Item.all.append(self)
 
-    def speaks(self):
-        print("i dont speak")
+    
+    def total_price(self):
+        return self.price*self.Qty
+    
+    def discount(self):
+        self.price = self.price * self.pay_rate #OR Item.pay_rate
 
-class cat(pets):
-    def __init__(self,name,age,colour):
-        super().__init__(name,age)
-        self.colour = colour
+    def __repr__(self):
+        return f"Item('{self.name}',{self.price},{self.Qty})"
+    
+    @classmethod
+    def from_csv(cls):
+        with open("Items.csv","r") as f:
+            reader = csv.DictReader(f)
+            items  = list(reader)
+        
+        for item in items:
+            Item(
+                name=item['name'],
+                price=float(item['price']),
+                Qty=int(item['Qty'])
+            )
 
-    def speaks(self):
-        print("meow")
-
-    def show(self):
-        print(f"i am {self.name} of age {self.age} colour {self.colour}")
-
-class dog(pets):
-    def speaks(self):
-        print("barks")
-
-p = pets("hari",12)
-p.show()
-p.speaks()
-
-c = cat("jack", 11, "white")
-c.show()
-c.speaks()
-
-d = dog("cups",8)
-d.show()
-d.speaks()
+Item.from_csv()
+print(Item.all)
