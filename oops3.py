@@ -1,3 +1,5 @@
+import csv
+
 class Item:
     pay_rate = 0.8
     all = []
@@ -21,13 +23,19 @@ class Item:
 
     def __repr__(self):
         return f"Item('{self.name}',{self.price},{self.Qty})"
+    
+    @classmethod
+    def from_csv(cls):
+        with open("Items.csv","r") as f:
+            reader = csv.DictReader(f)
+            items  = list(reader)
+        
+        for item in items:
+            Item(
+                name=item['name'],
+                price=float(item['price']),
+                Qty=int(item['Qty'])
+            )
 
-item1 = Item("Phone", 100, 1)
-item2 = Item("Laptop", 1000, 3)
-item3 = Item("Cable", 10, 5)
-item4 = Item("Mouse", 50, 5)
-item5 = Item("Keyboard", 75, 5)
-
+Item.from_csv()
 print(Item.all)
-for instance in Item.all:
-    print(instance.name)
