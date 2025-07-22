@@ -43,6 +43,30 @@ class Item:
             return True
         if isinstance(num, int):
             return False
+        
 
+class Phone (Item):
 
-print(Item.is_float(3))
+    all = []
+    def __init__(self,name: str,price :float,Qty = 0,broken_phones = 0):
+        super().__init__(name,price,Qty)
+
+        assert broken_phones >= 0,f"broken_phones {broken_phones} is not greater than 0"
+
+        self.broken_phones = broken_phones
+
+        Phone.all.append(self)
+
+    @classmethod
+    def total_no_broken_phones(cls):
+        #the total m=number of broken phones added together from all instances
+        return sum(phone.broken_phones for phone in Phone.all)
+
+phone1 = Phone("vivo",20000,1,4)
+phone2 = Phone("samsung",30000,1,2)
+phone3 = Phone("oppo",25000,1,1)
+
+for i in range(0,len(Phone.all)):
+    print("\n",Phone.all[i])
+
+print("The total number of broken phones from all instances is : ",Phone.total_no_broken_phones())
