@@ -36,6 +36,13 @@ class Item:
                 price=float(item['price']),
                 Qty=int(item['Qty'])
             )
+    
+    @staticmethod
+    def is_float(num):
+        if isinstance(num, float):
+            return True
+        if isinstance(num, int):
+            return False
 
-Item.from_csv()
-print(Item.all)
+
+print(Item.is_float(3))
