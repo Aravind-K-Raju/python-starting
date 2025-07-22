@@ -7,7 +7,7 @@ class Item:
         assert price >= 0,f"price {price} is not greater than 0"
         assert Qty >= 0,f"price {Qty} is not greater than 0"
 
-        self.name = name
+        self.__name = name
         self.price = price
         self.Qty = Qty
 
@@ -44,3 +44,10 @@ class Item:
         if isinstance(num, int):
             return False
         
+    @property
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    def newname(self,name):
+        self.__name = name

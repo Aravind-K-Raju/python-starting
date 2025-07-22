@@ -9,3 +9,8 @@ for i in range(0,len(Phone.all)):
     print("\n",Phone.all[i])
 
 print("The total number of broken phones from all instances is : ",Phone.total_no_broken_phones())
+
+print(phone1.name)
+
+phone1.newname = "vivo 2023"
+print(phone1.name)
